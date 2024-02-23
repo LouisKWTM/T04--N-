@@ -46,11 +46,9 @@ async function fetchPokemons() {
 // TODO 1: Call API https://pokeapi.co/api/v2/pokemon?offset=20&limit=20 to fetch
 //         the pokemons and store the returned JSON in a variable.
 //         const response = await fetch(“https://pokeapi.co/...”);
-const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20');
-response.json().then(() => {
-
-})
-console.log(response)
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20');
+    const pokemon = await response.json();
+    console.log(pokemon)
 
 
 
@@ -58,7 +56,17 @@ console.log(response)
 //        pokemon’s name as the div’s id, and set the class to ‘pokemon’. Append
 //        the new created div to the given pokemons div
 //        You may use setAttribute and appendChild function accordingly.
-
+    let Pokemons = pokemon.results
+    let PkName = ''
+    for (let i=0; i<Pokemons.length; i++) {
+        PkName = Pokemons[i].name
+        newEle = document.createElement('div')
+        newEle.id = PkName
+        newEle.classList.add('pokemon')
+        target = document.getElementById('pokemons')
+        target.appendChild(newEle)
+    }
+    console.log(Pokemons)
 
 
 
