@@ -62,11 +62,13 @@ async function fetchPokemons() {
         PkName = Pokemons[i].name
         newEle = document.createElement('div')
         newEle.id = PkName
-        newEle.classList.add('pokemon')
+        newEle.className = 'pokemon'
         target = document.getElementById('pokemons')
         target.appendChild(newEle)
+        console.log(Pokemons[i].url)
+        result = await fetch(Pokemons[i].url)
     }
-    console.log(Pokemons)
+    //console.log(Pokemons)
 
 
 
