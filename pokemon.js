@@ -7,39 +7,54 @@ function pad(num, size) {
 
 async function fetchPokemon(url) {
 // TODO 4: Fetch the data according to the URL parameter.
-
+    const response = await fetch(url);
+    const data = await response.json();
 
 // TODO 5: Obtain the div that created in TODO 2
-
+    const pokemonDiv = document.getElementById(data.name);
 
 // TODO 6: Create the element p, set the class to pid and put the pokemon’s id
 // inside the element and append to the div obtained in TODO 5.
-
 // HINTS: you can use document.createTextNode(‘text’) to create a text node, and
 //        append to the element. <p>test</p> is equivalent to:
 //        var p = document.createElement(‘p’);
 //        var textNode = document.createTextNode(‘test’);
 //        p.appendChild(textNode)
-
-
+    var p = document.createElement('p');
+    p.className = "pid";
+    ID = pad(data.id, 3)
+    var textNode = document.createTextNode(ID);
+    p.appendChild(textNode);
+    pokemonDiv.appendChild(p);
+    
 
 // TODO 7: Create the img element, set the src to the image link obtained from the
 // API, and append to the div obtained in TODO 5.
-
-
+    var img = document.createElement('img');
+    img.src = data.sprites.front_default;
+    pokemonDiv.appendChild(img);
 
 // TODO 8: Create the element p, set the class to “name” and
 //         put the pokemon’s name inside the element and
 //         append to the div obtained in TODO 5.
-
-
+    p = document.createElement('p');
+    p.className = "name";
+    textNode = document.createTextNode(data.name);
+    p.appendChild(textNode);
+    pokemonDiv.appendChild(p);
 
 //TODO 9: Create the element p, set the class to “type” and
 //        put the pokemon’s type inside the element and
 //        append to the div obtained in TODO 5.
 //        Note that you need to join multiple types into single string.
+    p = document.createElement('p');
+    p.className = "type";
+    textNode = document.createTextNode(data.types.map(type => type.type.name).join(", "));
+    p.appendChild(textNode);
+    pokemonDiv.appendChild(p);
+    
 }
-
+ 
 
 
 async function fetchPokemons() {
@@ -66,7 +81,8 @@ async function fetchPokemons() {
         target = document.getElementById('pokemons')
         target.appendChild(newEle)
         console.log(Pokemons[i].url)
-        result = await fetch(Pokemons[i].url)
+        result = Pokemons[i].url
+        fetchPokemon(result);
     }
     //console.log(Pokemons)
 
@@ -74,6 +90,7 @@ async function fetchPokemons() {
 
 // TODO 3: After that inside the same loop,
 //         call second API to fetch individual Pokémon.
+    
 }
 
 fetchPokemons()
